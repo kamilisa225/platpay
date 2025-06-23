@@ -20,16 +20,12 @@ public class MenuPemilik {
                 int pilihan = Integer.parseInt(scanner.nextLine());
                 
                 switch (pilihan) {
-                    case 1:
-                        tampilkanKendaraanSaya(dataService, pemilik.getNik());
-                        break;
-                    case 2:
-                        cekStatusPajak(scanner, dataService);
-                        break;
-                    case 3:
+                    case 1 -> tampilkanKendaraanSaya(dataService, pemilik.getNik());
+                    case 2 -> cekStatusPajak(scanner, dataService);
+                    case 3 -> {
                         return;
-                    default:
-                        System.out.println("Pilihan tidak valid!");
+                    }
+                    default -> System.out.println("Pilihan tidak valid!");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Input harus berupa angka!");
@@ -41,17 +37,19 @@ public class MenuPemilik {
         System.out.println("\n--- KENDARAAN SAYA ---");
         boolean found = false;
         
-        System.out.printf("%-12s %-15s %-10s %-8s %-10s %-12s\n",
-                "NO POLISI", "MERK/TIPE", "TAHUN", "CC", "WARNA", "STATUS PAJAK");
+        System.out.printf("%-12s %-15s %-10s %-8s %-10s %-12s %-12s %-12s\n",
+                "NO POLISI", "MERK/TIPE", "TAHUN", "CC", "WARNA", "HARGA PAJAK", "TJTP", "STATUS PAJAK");
         
         for (Kendaraan k : dataService.getAllKendaraan()) {
             if (k.getNikPemilik().equals(nikPemilik)) {
-                System.out.printf("%-12s %-15s %-10d %-8d %-10s %-12s\n",
+                System.out.printf("%-12s %-15s %-10d %-8d %-10s %-12.0f %-12s %-12s\n",
                         k.getNopol(),
                         k.getMerkTipe(),
                         k.getTahunKeluar(),
                         k.getKapasitasCC(),
                         k.getWarna(),
+                        k.getHargaPajak(),
+                        k.getTjtp(),
                         k.getStatusPajak());
                 found = true;
             }
@@ -75,6 +73,8 @@ public class MenuPemilik {
             System.out.println("Tahun        : " + k.getTahunKeluar());
             System.out.println("Kapasitas CC : " + k.getKapasitasCC());
             System.out.println("Warna        : " + k.getWarna());
+            System.out.println("Harga Pajak  : Rp" + k.getHargaPajak());
+            System.out.println("TJTP         : " + k.getTjtp());
             System.out.println("Status Pajak : " + k.getStatusPajak());
         } else {
             System.out.println("Kendaraan tidak ditemukan!");
