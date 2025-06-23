@@ -21,6 +21,8 @@ public class MenuCekPajak {
             System.out.println("Kapasitas CC : " + k.getKapasitasCC());
             System.out.println("Warna        : " + k.getWarna());
             System.out.println("Pemilik (NIK): " + k.getNikPemilik());
+            System.out.println("Harga Pajak  : Rp" + k.getHargaPajak());
+            System.out.println("TJTP         : " + k.getTjtp());
             System.out.println("Status Pajak : " + k.getStatusPajak());
         } else {
             System.out.println("Kendaraan tidak ditemukan!");
