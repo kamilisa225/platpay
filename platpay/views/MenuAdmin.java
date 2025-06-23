@@ -25,28 +25,16 @@ public class MenuAdmin {
                 int pilihan = Integer.parseInt(scanner.nextLine());
                 
                 switch (pilihan) {
-                    case 1:
-                        tampilkanSemuaKendaraan(dataService);
-                        break;
-                    case 2:
-                        tambahKendaraanBaru(scanner, dataService);
-                        break;
-                    case 3:
-                        ubahStatusPajak(scanner, dataService);
-                        break;
-                    case 4:
-                        blokirKendaraan(scanner, dataService);
-                        break;
-                    case 5:
-                        tampilkanKendaraanDiblokir(dataService);
-                        break;
-                    case 6:
-                        unblockKendaraan(scanner, dataService);
-                        break;
-                    case 7:
+                    case 1 -> tampilkanSemuaKendaraan(dataService);
+                    case 2 -> tambahKendaraanBaru(scanner, dataService);
+                    case 3 -> ubahStatusPajak(scanner, dataService);
+                    case 4 -> blokirKendaraan(scanner, dataService);
+                    case 5 -> tampilkanKendaraanDiblokir(dataService);
+                    case 6 -> unblockKendaraan(scanner, dataService);
+                    case 7 -> {
                         return;
-                    default:
-                        System.out.println("Pilihan tidak valid!");
+                    }
+                    default -> System.out.println("Pilihan tidak valid!");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Input harus berupa angka!");
@@ -56,17 +44,19 @@ public class MenuAdmin {
 
     private static void tampilkanSemuaKendaraan(DataService dataService) {
         System.out.println("\n--- DAFTAR KENDARAAN ---");
-        System.out.printf("%-12s %-15s %-10s %-8s %-10s %-15s %-12s %-10s\n",
-                "NO POLISI", "MERK/TIPE", "TAHUN", "CC", "WARNA", "PEMILIK (NIK)", "STATUS PAJAK", "BLOKIR");
+        System.out.printf("%-12s %-15s %-10s %-8s %-10s %-15s %-12s %-12s %-12s %-10s\n",
+                "NO POLISI", "MERK/TIPE", "TAHUN", "CC", "WARNA", "PEMILIK (NIK)", "HARGA PAJAK", "TJTP", "STATUS PAJAK", "BLOKIR");
         
         for (Kendaraan k : dataService.getAllKendaraan()) {
-            System.out.printf("%-12s %-15s %-10d %-8d %-10s %-15s %-12s %-10s\n",
+            System.out.printf("%-12s %-15s %-10d %-8d %-10s %-15s %-12.0f %-12s %-12s %-10s\n",
                     k.getNopol(),
                     k.getMerkTipe(),
                     k.getTahunKeluar(),
                     k.getKapasitasCC(),
                     k.getWarna(),
                     k.getNikPemilik(),
+                    k.getHargaPajak(),
+                    k.getTjtp(),
                     k.getStatusPajak(),
                     dataService.isBlocked(k.getNopol()) ? "YA" : "TIDAK");
         }
@@ -93,7 +83,13 @@ public class MenuAdmin {
         System.out.print("NIK Pemilik: ");
         String nikPemilik = scanner.nextLine();
         
-        Kendaraan baru = new Kendaraan(nopol, tahun, merk, cc, warna, nikPemilik, "BELUM BAYAR");
+        System.out.print("Harga Pajak: ");
+        double hargaPajak = Double.parseDouble(scanner.nextLine());
+        
+        System.out.print("Tanggal Jatuh Tempo (YYYY-MM-DD): ");
+        String tjtp = scanner.nextLine();
+        
+        Kendaraan baru = new Kendaraan(nopol, tahun, merk, cc, warna, nikPemilik, "BELUM BAYAR", hargaPajak, tjtp);
         if (dataService.addKendaraan(baru)) {
             System.out.println("Kendaraan berhasil ditambahkan!");
         } else {
@@ -147,17 +143,19 @@ public class MenuAdmin {
             return;
         }
         
-        System.out.printf("%-12s %-15s %-10s %-8s %-10s %-15s %-12s\n",
-                "NO POLISI", "MERK/TIPE", "TAHUN", "CC", "WARNA", "PEMILIK (NIK)", "STATUS PAJAK");
+        System.out.printf("%-12s %-15s %-10s %-8s %-10s %-15s %-12s %-12s %-12s\n",
+                "NO POLISI", "MERK/TIPE", "TAHUN", "CC", "WARNA", "PEMILIK (NIK)", "HARGA PAJAK", "TJTP", "STATUS PAJAK");
         
         for (Kendaraan k : blocked) {
-            System.out.printf("%-12s %-15s %-10d %-8d %-10s %-15s %-12s\n",
+            System.out.printf("%-12s %-15s %-10d %-8d %-10s %-15s %-12.0f %-12s %-12s\n",
                     k.getNopol(),
                     k.getMerkTipe(),
                     k.getTahunKeluar(),
                     k.getKapasitasCC(),
                     k.getWarna(),
                     k.getNikPemilik(),
+                    k.getHargaPajak(),
+                    k.getTjtp(),
                     k.getStatusPajak());
         }
     }
