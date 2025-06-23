@@ -8,12 +8,14 @@ public class AuthService {
 
     static {
         // Data Admin
-        users.add(new Admin("ADM001", "Admin Utama", "admin123", "Super Admin"));
+        users.add(new Admin("ADM001", "Irawan Suryadi", "admin123", "Super Admin"));
+        users.add(new Admin("ADM002", "Bambang Suryanto", "admin123", "Sub Admin"));
         
         // Data Pemilik
         users.add(new Pemilik("PML001", "Budi Santoso", "budi123", "Jl. Merdeka No.1"));
         users.add(new Pemilik("PML002", "Ani Wijaya", "ani123", "Jl. Sudirman No.2"));
         users.add(new Pemilik("PML003", "Rudi Hermawan", "rudi123", "Jl. Gatot Subroto No.3"));
+        users.add(new Pemilik("PML004", "Layla Harlina", "layla123", "Jl. Nangka Mateng No.4"));
     }
 
     public User login(String nik, String password) {
