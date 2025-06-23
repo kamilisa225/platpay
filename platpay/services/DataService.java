@@ -7,16 +7,13 @@ public class DataService {
     private static ArrayList<Kendaraan> kendaraans = new ArrayList<>();
     private static ArrayList<String> blockedKendaraans = new ArrayList<>();
 
-    // Initialize with sample data
     static {
-        // Data Kendaraan
-        kendaraans.add(new Kendaraan("B 1234 AB", 2020, "Toyota Avanza", 1300, "Hitam", "PML001", "BELUM BAYAR"));
-        kendaraans.add(new Kendaraan("D 5678 CD", 2021, "Honda Civic", 1500, "Merah", "PML002", "LUNAS"));
-        kendaraans.add(new Kendaraan("L 9012 EF", 2019, "Suzuki Ertiga", 1200, "Putih", "PML001", "BELUM BAYAR"));
-        kendaraans.add(new Kendaraan("B 3456 GH", 2022, "Mitsubishi Xpander", 1500, "Silver", "PML003", "LUNAS"));
+        kendaraans.add(new Kendaraan("B 1234 AB", 2020, "Toyota Avanza", 1300, "Hitam", "PML001", "BELUM BAYAR", 1500000, "2023-12-31"));
+        kendaraans.add(new Kendaraan("D 5678 CD", 2021, "Honda Civic", 1500, "Merah", "PML002", "LUNAS", 1750000, "2023-12-31"));
+        kendaraans.add(new Kendaraan("L 9012 EF", 2019, "Suzuki Ertiga", 1200, "Putih", "PML001", "BELUM BAYAR", 1250000, "2023-12-31"));
+        kendaraans.add(new Kendaraan("B 3456 GH", 2022, "Mitsubishi Xpander", 1500, "Silver", "PML003", "LUNAS", 1800000, "2023-12-31"));
     }
 
-    // Kendaraan operations
     public ArrayList<Kendaraan> getAllKendaraan() {
         return new ArrayList<>(kendaraans);
     }
@@ -50,7 +47,6 @@ public class DataService {
         return false;
     }
 
-    // Blocking system
     public boolean blockKendaraan(String nopol) {
         if (getKendaraanByNopol(nopol) != null && !blockedKendaraans.contains(nopol)) {
             blockedKendaraans.add(nopol);
